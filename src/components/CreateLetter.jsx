@@ -84,7 +84,7 @@ export const CreateLetter = ({ searchQuery }) => {
                     password: "Q9R0S",
                 },
                 {
-                    headers: { withCredentials: true },
+                    withCredentials: true,
                 }
             );
 

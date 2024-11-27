@@ -1,0 +1,16 @@
+.Accordion {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80%;
+    margin: auto;
+}
+
+.Accordion-item {
+    background-color: aqua;
+}
+
+.Accordion-content {
+    background-color: blueviolet;
+}

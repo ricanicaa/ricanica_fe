@@ -81,7 +81,7 @@ export const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
                 )}
                 {selectedItem && (
                     <div className="Selected-Item">
-                        <div style={{ margin: "auto", height: "100%" }}>
+                        <div style={{ display: "flex", alignItems: "center" }}>
                             {selectedItem.english_name}
                         </div>
                         <button onClick={handleClearSelection}>

@@ -51,3 +51,15 @@ export const names = [
     { member_id: 50, english_name: "derek.yoo", name: "데릭" },
     { member_id: 51, english_name: "jeff.lim", name: "제프" },
 ];
+
+export const questions = [
+    "question 1",
+    "question 2",
+    "question 3",
+    "question 4",
+    "question 5",
+    "question 6",
+    "question 7",
+    "question 8",
+    "question 9",
+];
