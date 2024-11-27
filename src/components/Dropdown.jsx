@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import "../styles/components/Dropdown.css";
 
 export const Dropdown = ({ items, isOpen, onSelect }) => {
     const sortedItems = [...items].sort((a, b) =>

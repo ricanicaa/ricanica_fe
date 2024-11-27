@@ -2,16 +2,15 @@ import "../styles/components/SearchBar.css";
 import { useState } from "react";
 import { Dropdown } from "./Dropdown";
 import { names } from "../data/names";
-import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 
-export const SearchBar = () => {
+export const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
     const [selectedItem, setSelectedItem] = useState(null);
 
     const handleSearchChange = (event) => {
-        setSearchQuery(event.target.value);
+        onSearchQueryChange(event.target.value);
         setIsOpen(true);
     };
 
@@ -20,7 +19,7 @@ export const SearchBar = () => {
         if (filteredItems.length === 1) {
             const firstItem = filteredItems[0];
             setSelectedItem(firstItem);
-            setSearchQuery(firstItem.english_name);
+            onSearchQueryChange(firstItem.english_name);
             setIsOpen(false);
         } else {
             setIsOpen(true);
@@ -29,7 +28,7 @@ export const SearchBar = () => {
 
     const handleSelectItem = (item) => {
         setSelectedItem(item);
-        setSearchQuery(item.english_name);
+        onSearchQueryChange(item.english_name);
         setIsOpen(false);
     };
 
@@ -45,14 +44,15 @@ export const SearchBar = () => {
         if (event.key === "Enter" && filteredItems.length === 1) {
             const firstItem = filteredItems[0];
             setSelectedItem(firstItem);
-            setSearchQuery(firstItem.english_name);
+            onSearchQueryChange(firstItem.english_name);
             setIsOpen(false);
         }
     };
 
     const handleClearSelection = () => {
         setSelectedItem(null);
-        setSearchQuery("");
+        onSearchQueryChange("");
+        setIsOpen(true);
     };
 
     const showDropdown = filteredItems.length > 0;
@@ -63,9 +63,9 @@ export const SearchBar = () => {
                 <input
                     className="Search-Box"
                     type="text"
-                    value={searchQuery} // 입력값을 searchQuery로 설정
-                    onChange={handleSearchChange} // 입력 값 변경 시 실행
-                    onKeyDown={handleKeyDown} // Enter 키 눌렀을 때 처리
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleKeyDown}
                     placeholder="검색"
                 />
                 {isOpen ? (
@@ -81,7 +81,9 @@ export const SearchBar = () => {
                 )}
                 {selectedItem && (
                     <div className="Selected-Item">
-                        <div>{selectedItem.english_name}</div>
+                        <div style={{ margin: "auto", height: "100%" }}>
+                            {selectedItem.english_name}
+                        </div>
                         <button onClick={handleClearSelection}>
                             <AiOutlineClose size={14} />
                         </button>
