@@ -1,3 +1,15 @@
+export const question = [
+    { title: "1️⃣ question 1", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "2️⃣ question 2", content: ": 다른 질문 내용 1" },
+    { title: "3️⃣ question 3", content: ": 다른 질문 내용 2" },
+    { title: "4️⃣ question 4", content: ": 다른 질문 내용 3" },
+    { title: "5️⃣ question 5", content: ": 다른 질문 내용 4" },
+    { title: "6️⃣ question 6", content: ": 다른 질문 내용 5" },
+    { title: "7️⃣ question 6", content: ": 다른 질문 내용 6" },
+    { title: "8️⃣ question 6", content: ": 다른 질문 내용 7" },
+    { title: "9️⃣ question 6", content: ": 다른 질문 내용 8" },
+];
+
 export const names = [
     { member_id: 1, english_name: "wendy.kim", name: "웬디" },
     { member_id: 2, english_name: "elle.park", name: "엘" },
@@ -50,16 +62,4 @@ export const names = [
     { member_id: 49, english_name: "andy.choi", name: "앤디" },
     { member_id: 50, english_name: "derek.yoo", name: "데릭" },
     { member_id: 51, english_name: "jeff.lim", name: "제프" },
-];
-
-export const questions = [
-    "question 1",
-    "question 2",
-    "question 3",
-    "question 4",
-    "question 5",
-    "question 6",
-    "question 7",
-    "question 8",
-    "question 9",
 ];

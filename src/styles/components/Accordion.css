@@ -1,5 +1,4 @@
 .Accordion {
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -8,9 +7,38 @@
 }
 
 .Accordion-item {
-    background-color: aqua;
+    background-color: rgb(242, 242, 242);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border: none;
+    transition: border 0.3s ease;
+    border-radius: 15px;
+}
+
+.Accordion-item.active {
+    border-top: 3px solid #007bff;
+    border-left: 3px solid #007bff;
+    border-right: 3px solid #007bff;
 }
 
 .Accordion-content {
-    background-color: blueviolet;
+    background-color: rgb(228, 228, 228);
+    height: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    overflow: hidden;
+    border: none; /* 기본 border */
+    border-radius: 0 0 15px 15px;
+    transition: height 0.3s ease, border 0.3s ease;
+}
+
+.Accordion-content.active {
+    height: 50px;
+    padding-left: 10px;
+    border-bottom: 3px solid #007bff;
+    border-left: 3px solid #007bff;
+    border-right: 3px solid #007bff;
 }

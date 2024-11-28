@@ -97,9 +97,9 @@ export const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
                     onSelect={handleSelectItem}
                 />
             )}
-            <button className="Search-Button" onClick={handleSearchSubmit}>
+            {/* <button className="Search-Button" onClick={handleSearchSubmit}>
                 검색
-            </button>
+            </button> */}
         </div>
     );
 };

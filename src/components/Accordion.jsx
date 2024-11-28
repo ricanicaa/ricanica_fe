@@ -1,7 +1,8 @@
 import "../styles/components/Accordion.css";
 import { useState } from "react";
+import { SearchBar } from "../components/SearchBar";
 
-const Accordion = ({ items }) => {
+export const Accordion = ({ items }) => {
     const [activeIndex, setActiveIndex] = useState(null);
 
     const toggle = (index) => {
@@ -11,23 +12,42 @@ const Accordion = ({ items }) => {
     return (
         <div className="Accordion">
             {items.map((item, index) => (
-                <div key={index} className="Accordion-item">
+                <div className="question" key={index}>
                     <div
+                        className={`Accordion-item ${
+                            activeIndex === index ? "active" : ""
+                        }`}
                         onClick={() => toggle(index)}
-                        style={{ cursor: "pointer", fontWeight: "bold" }}
+                        style={{
+                            cursor: "pointer",
+                            fontWeight: "bold",
+                            borderRadius:
+                                activeIndex === index
+                                    ? "15px 15px 0 0"
+                                    : "15px",
+                        }}
                     >
-                        {item.title}
+                        {/* 열리면 title + content가 표시되게 */}
+                        {activeIndex === index
+                            ? `${item.title} ${item.content}`
+                            : item.title}
                     </div>
-                    {activeIndex === index && (
-                        <div className="Accordion-content">{item.content}</div>
-                    )}
+                    <div
+                        className={`Accordion-content ${
+                            activeIndex === index ? "active" : ""
+                        }`}
+                    >
+                        {activeIndex === index && (
+                            <SearchBar
+                                searchQuery={item.searchQuery || ""}
+                                onSearchQueryChange={(value) => {
+                                    item.searchQuery = value;
+                                }}
+                            />
+                        )}
+                    </div>
                 </div>
             ))}
         </div>
     );
 };
-
-export default Accordion;
-
-// 사용 예시
-// <Accordion items={[{ title: "Title 1", content: "Content 1" }, { title: "Title 2", content: "Content 2" }]} />
