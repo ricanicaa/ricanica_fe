@@ -73,34 +73,8 @@ export const CreateLetter = ({ searchQuery }) => {
         }
     };
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-
-        try {
-            const res = await axios.post(
-                `${API_BASE}/api/members/login`,
-                {
-                    english_name: "veronica.park",
-                    password: "Q9R0S",
-                },
-                {
-                    withCredentials: true,
-                }
-            );
-
-            if (res.status === 200) {
-                console.log("제출 성공 : ", res.data);
-            } else {
-                console.log("제출 실패");
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     return (
         <div className="CreateLetter">
-            <div onClick={handleLogin}>로그인</div>
             <form className="LetterForm" onSubmit={handleSubmit}>
                 <div className="To">
                     <strong>💌 To. {name}</strong>
