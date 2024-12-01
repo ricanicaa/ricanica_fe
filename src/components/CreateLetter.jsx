@@ -64,7 +64,13 @@ export const CreateLetter = ({ searchQuery }) => {
             );
 
             if (res.status === 201) {
+                alert("편지 보냈띠예");
                 console.log("제출 성공 : ", res.data);
+                // 폼 초기화
+                setContent("");
+                setSender("");
+                setIsContentValid(false);
+                setIsSenderValid(false);
             } else {
                 console.log("제출 실패");
             }
