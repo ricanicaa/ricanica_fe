@@ -5,6 +5,7 @@ import tree from "../image/tree.png";
 import axios from "axios";
 import { Stack, Pagination, Modal, Box } from "@mui/material";
 import { EachLetter } from "../components/EachLetter";
+import { getNames } from "../util/member";
 
 const positions = [
     { transform: "translate(-40%, -400%)" },
@@ -25,6 +26,10 @@ export const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedLetter, setSelectedLetter] = useState(null);
     const [open, setOpen] = useState(false);
+    const [nextCursor, setNextCursor] = useState(null);
+    const [hasNext, setHasNext] = useState(true);
+    const pageOwner = parseInt(sessionStorage.getItem("member_id"), 10);
+    const memberName = getNames(pageOwner);
 
     const itemsPerPage = 10;
 
@@ -38,6 +43,36 @@ export const Home = () => {
         }));
         setLetters(mockData);
     }, []);
+
+    // 초기 데이터 로딩
+    useEffect(() => {
+        fetchLetters();
+    }, []);
+
+    const fetchLetters = async (cursor = null) => {
+        try {
+            const endPoint = cursor
+                ? `${API_BASE}/api/members/letters?cursor=${cursor}`
+                : `${API_BASE}/api/members/letters`;
+            const res = await axios.get(endPoint, { withCredentials: true });
+
+            if (res.status === 200) {
+                console.log(res.data.data);
+                setLetters((prevLetters) => [...prevLetters, ...res.data.data]);
+                setNextCursor(res.data.nextCursor);
+                setHasNext(res.data.hasNext);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // 다음 페이지 요청
+    const handleNextPage = () => {
+        if (hasNext && nextCursor) {
+            fetchLetters(nextCursor);
+        }
+    };
 
     // 현재 페이지에 해당하는 데이터
     const paginatedLetters = letters.slice(
@@ -61,27 +96,9 @@ export const Home = () => {
         setSelectedLetter(null);
     };
 
-    // 편지 리스트 가지고 오기
-    // const fetchLetters = async (page) =>{
-    //     try{
-    //         const endPoint = `${API_BASE}/letters?cursor=${nextCursor}`
-    //         const res = await axios.get(endPoint, {
-
-    //         })
-    //     }
-    // }
-
-    // const handleNext = () => {
-
-    // }
-
-    // const handlePrev = () => {
-    //     setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
-    // }
-
     return (
         <div className="Home">
-            <h1 className="tree-title">Erica 님의 tree</h1>
+            <h1 className="tree-title">{memberName} 님의 Tree</h1>
             <div className="hamburger-bar"></div>
             <div
                 className="tree"

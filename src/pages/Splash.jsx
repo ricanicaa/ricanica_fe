@@ -23,8 +23,11 @@ export const Splash = () => {
             );
 
             if (res.status === 200) {
-                // console.log("제출 성공 : ", res.data);
                 alert("로그인 성공");
+                sessionStorage.setItem(
+                    "member_id",
+                    JSON.stringify(res.data.data)
+                );
                 nav("/home");
             } else {
                 console.log("제출 실패");
