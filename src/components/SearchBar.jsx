@@ -6,7 +6,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 
 export const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const [selectedItem, setSelectedItem] = useState(null);
 
     const handleSearchChange = (event) => {

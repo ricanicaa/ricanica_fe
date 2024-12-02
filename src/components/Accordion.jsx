@@ -4,9 +4,23 @@ import { SearchBar } from "../components/SearchBar";
 
 export const Accordion = ({ items }) => {
     const [activeIndex, setActiveIndex] = useState(null);
+    const [answers, setAnswers] = useState(Array(items.length).fill("")); // 9개의 답변 관리
 
     const toggle = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
+    };
+
+    const handleAnswerChange = (index, value) => {
+        const updatedAnswers = [...answers];
+        updatedAnswers[index] = value; // 특정 질문의 답변 업데이트
+        setAnswers(updatedAnswers);
+    };
+
+    const handleSubmit = () => {
+        // 9개의 답변을 한 번에 제출
+        console.log("Submitted Answers:", answers);
+        alert("Answers submitted successfully!");
+        // 서버로 전송 로직 추가 가능 (fetch/axios 등 사용)
     };
 
     return (
@@ -27,10 +41,7 @@ export const Accordion = ({ items }) => {
                                     : "15px",
                         }}
                     >
-                        {/* 열리면 title + content가 표시되게 */}
-                        {activeIndex === index
-                            ? `${item.title} ${item.content}`
-                            : item.title}
+                        {item.title}
                     </div>
                     <div
                         className={`Accordion-content ${
@@ -38,16 +49,21 @@ export const Accordion = ({ items }) => {
                         }`}
                     >
                         {activeIndex === index && (
-                            <SearchBar
-                                searchQuery={item.searchQuery || ""}
-                                onSearchQueryChange={(value) => {
-                                    item.searchQuery = value;
-                                }}
-                            />
+                            <div className="SearchBar-container">
+                                <SearchBar
+                                    searchQuery={answers[index]} // 각 질문에 연결된 답변
+                                    onSearchQueryChange={(value) =>
+                                        handleAnswerChange(index, value)
+                                    }
+                                />
+                            </div>
                         )}
                     </div>
                 </div>
             ))}
+            <button onClick={handleSubmit} className="submit-button">
+                Submit All Answers
+            </button>
         </div>
     );
 };
