@@ -1,10 +1,13 @@
 import "../styles/components/Accordion.css";
 import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
+import { getMemberId } from "../util/member";
+import axios from "axios";
 
 export const Accordion = ({ items }) => {
+    const API_BASE = import.meta.env.VITE_APP_API_BASE;
     const [activeIndex, setActiveIndex] = useState(null);
-    const [answers, setAnswers] = useState(Array(items.length).fill("")); // 9개의 답변 관리
+    const [answers, setAnswers] = useState(Array(items.length).fill(""));
 
     const toggle = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -12,15 +15,32 @@ export const Accordion = ({ items }) => {
 
     const handleAnswerChange = (index, value) => {
         const updatedAnswers = [...answers];
-        updatedAnswers[index] = value; // 특정 질문의 답변 업데이트
+        updatedAnswers[index] = value;
         setAnswers(updatedAnswers);
     };
 
-    const handleSubmit = () => {
-        // 9개의 답변을 한 번에 제출
-        console.log("Submitted Answers:", answers);
-        alert("Answers submitted successfully!");
-        // 서버로 전송 로직 추가 가능 (fetch/axios 등 사용)
+    const handleSubmit = async() => {
+        try {
+            const formattedAnswers = answers.reduce((result, name, index) => {
+                const id = getMemberId(name)
+                result[`question${index + 1}`] = id
+                return result
+            }, {})
+
+            console.log("Submitted Answers:", formattedAnswers);
+
+            const res = await axios.post(
+                `${API_BASE}/api/votes`,
+                formattedAnswers,
+                { withCredentials: true }
+            );
+
+            if (res.status === 200) {
+                alert("설문조사 완료")
+            }
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -42,6 +62,7 @@ export const Accordion = ({ items }) => {
                         }}
                     >
                         {item.title}
+                        {activeIndex === index && ` ${item.content}`}
                     </div>
                     <div
                         className={`Accordion-content ${
