@@ -1,14 +1,14 @@
 export const question = [
-    { title: "0️⃣ 1️⃣ question 1", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "0️⃣ 2️⃣ question 2", content: ": 다른 질문 내용 1" },
-    { title: "0️⃣ 3️⃣ question 3", content: ": 다른 질문 내용 2" },
-    { title: "0️⃣ 4️⃣ question 4", content: ": 다른 질문 내용 3" },
-    { title: "0️⃣ 5️⃣ question 5", content: ": 다른 질문 내용 4" },
-    { title: "0️⃣ 6️⃣ question 6", content: ": 다른 질문 내용 5" },
-    { title: "0️⃣ 7️⃣ question 7", content: ": 다른 질문 내용 6" },
-    { title: "0️⃣ 8️⃣ question 8", content: ": 다른 질문 내용 7" },
-    { title: "0️⃣ 9️⃣ question 9", content: ": 다른 질문 내용 8" },
-    { title: "1️⃣ 0️⃣ question 10", content: ": 다른 질문 내용 8" }, 
+    { title: "question 1", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 2", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 3", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 4", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 5", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 6", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 7", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 8", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 9", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "question 10", content: ": 카부캠에서 제일 ~~ 한 사람" },
 ];
 
 export const names = [
