@@ -3,6 +3,7 @@ import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { getMemberId } from "../util/member";
 import axios from "axios";
+import { AiOutlineCheck } from "react-icons/ai";
 
 export const Accordion = ({ items }) => {
     const API_BASE = import.meta.env.VITE_APP_API_BASE;
@@ -19,13 +20,13 @@ export const Accordion = ({ items }) => {
         setAnswers(updatedAnswers);
     };
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         try {
             const formattedAnswers = answers.reduce((result, name, index) => {
-                const id = getMemberId(name)
-                result[`question${index + 1}`] = id
-                return result
-            }, {})
+                const id = getMemberId(name);
+                result[`question${index + 1}`] = id;
+                return result;
+            }, {});
 
             console.log("Submitted Answers:", formattedAnswers);
 
@@ -36,7 +37,7 @@ export const Accordion = ({ items }) => {
             );
 
             if (res.status === 200) {
-                alert("설문조사 완료")
+                alert("설문조사 완료");
             }
         } catch (error) {
             console.error(error);
@@ -61,6 +62,29 @@ export const Accordion = ({ items }) => {
                                     : "15px",
                         }}
                     >
+                        <div
+                            style={{
+                                border: "none",
+                                width: "30px",
+                                height: "30px",
+                                marginRight: "20px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                borderRadius: "50%",
+                                backgroundColor: answers[index]
+                                    ? "#007bff"
+                                    : "#d7d7d7",
+                            }}
+                        >
+                            <AiOutlineCheck
+                                size={20}
+                                style={{
+                                    strokeWidth: 50,
+                                    color: answers[index] ? "white" : "#bfbfbf",
+                                }}
+                            />
+                        </div>
                         {item.title}
                         {activeIndex === index && ` ${item.content}`}
                     </div>
