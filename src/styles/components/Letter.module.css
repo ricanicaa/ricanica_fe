@@ -1,0 +1,43 @@
+.pageTitle {
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 10px;
+  margin: 7px 0 30px;
+  box-shadow: rgba(42, 42, 42, 0.2) 0px 7px 29px 0px;
+}
+
+.letter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.subTitle {
+  margin-top: 10px;
+}
+
+.searchContainer {
+  width: 100%;
+  padding: 0 10px;
+  margin: auto;
+  align-items: flex-start;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.caution {
+  margin-top: 20px;
+  font-size: 13px;
+  opacity: 0.5;
+}
