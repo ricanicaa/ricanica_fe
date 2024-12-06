@@ -1,106 +1,105 @@
 .SearchBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60%;
-    height: 35px;
-    margin: auto;
-    gap: 30px;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 35px;
+  gap: 30px;
+  position: relative;
 }
 
 .Search-Box-Container {
-    flex: 1;
-    height: 100%;
-    border: 1px solid #2d97fc;
-    border-radius: 5px;
-    padding-left: 15px;
-    position: relative;
-    cursor: pointer;
+  flex: 1;
+  height: 100%;
+  border: 1px solid #2d97fc;
+  border-radius: 5px;
+  padding-left: 15px;
+  position: relative;
+  cursor: pointer;
 }
 
 .Search-Box {
-    border: none;
-    outline: none;
-    height: 100%;
+  border: none;
+  outline: none;
+  height: 100%;
 }
 
 .Selected-Item {
-    position: absolute;
-    background-color: #dcf3ff;
-    color: #178dfc;
-    width: 140px;
-    height: 80%;
-    padding-left: 10px;
-    line-height: 30px;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
+  position: absolute;
+  background-color: #dcf3ff;
+  color: #178dfc;
+  width: 140px;
+  height: 80%;
+  padding-left: 10px;
+  line-height: 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
 }
 
 .Selected-Item > div {
-    flex: 1;
+  flex: 1;
 }
 
 .Selected-Item > button {
-    border: none;
-    background-color: transparent;
-    color: #2d97fc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  border: none;
+  background-color: transparent;
+  color: #2d97fc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .Search-Box-Icon {
-    width: 30px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #2d97fc;
-    right: 5px;
+  width: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2d97fc;
+  right: 5px;
 }
 
 .Search-Button {
-    width: 15%;
-    height: 100%;
-    border: none;
-    font-size: 15px;
-    color: #2d97fc;
-    border-radius: 5px;
+  width: 15%;
+  height: 100%;
+  border: none;
+  font-size: 15px;
+  color: #2d97fc;
+  border-radius: 5px;
 }
 
 .Dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 75%;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    max-height: 300px;
-    overflow-y: auto;
-    padding: 10px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 75%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
 }
 
 .Dropdown-Item {
-    padding: 10px;
-    font-size: 15px;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 10px;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .Dropdown-Item:hover {
-    background-color: #f1f1f1;
-    color: #2d97fc;
+  background-color: #f1f1f1;
+  color: #2d97fc;
 }
 
 .Dropdown-Item:active {
-    background-color: #ddd;
+  background-color: #ddd;
 }
