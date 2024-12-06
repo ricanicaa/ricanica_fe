@@ -2,14 +2,19 @@ import { useState } from "react";
 import { CreateLetter } from "../components/CreateLetter";
 import { SearchBar } from "../components/SearchBar";
 import styles from "../styles/components/Letter.module.css";
-import search from "../image/search.png";
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export const Letter = () => {
+  const navigate = useNavigate();
+  const isLogin = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchQueryChange = (query) => {
     setSearchQuery(query);
   };
+
+  if (!isLogin) navigate("/");
   return (
     <div className={styles.letter}>
       <div className={styles.pageTitle}> 따뜻한 마음 전하기 </div>
