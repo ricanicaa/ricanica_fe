@@ -24,8 +24,6 @@ export const Home = () => {
     if (isLogin) fetchInitialLetters();
   }, [isLogin]);
 
-  if (!isLogin) navigate("/");
-
   const fetchInitialLetters = async () => {
     try {
       const res = await axios.get(`${API_BASE}/api/letters`, {
