@@ -3,7 +3,6 @@ import { useState } from "react";
 import { SearchBar } from "../components/SearchBar";
 import { getMemberId } from "../util/member";
 import axios from "axios";
-import { AiOutlineCheck } from "react-icons/ai";
 
 export const Accordion = ({ items }) => {
     const API_BASE = import.meta.env.VITE_APP_API_BASE;
@@ -18,6 +17,9 @@ export const Accordion = ({ items }) => {
         const updatedAnswers = [...answers];
         updatedAnswers[index] = value;
         setAnswers(updatedAnswers);
+        if (value) {
+            setActiveIndex(null);
+        }
     };
 
     const handleSubmit = async () => {
@@ -77,13 +79,28 @@ export const Accordion = ({ items }) => {
                                     : "#d7d7d7",
                             }}
                         >
-                            <AiOutlineCheck
-                                size={20}
-                                style={{
-                                    strokeWidth: 50,
-                                    color: answers[index] ? "white" : "#bfbfbf",
-                                }}
-                            />
+                            {answers[index] ? (
+                                <span
+                                    style={{
+                                        color: "white",
+                                        fontWeight: "bold",
+                                        fontSize: "16px",
+                                    }}
+                                >
+                                    {index + 1} {/* 1부터 10까지 표시 */}
+                                </span>
+                            ) : (
+                                <span
+                                    style={{
+                                        color: "#bfbfbf", // 답변이 없으면 회색
+                                        fontWeight: "bold",
+                                        fontSize: "16px",
+                                    }}
+                                >
+                                    {index + 1}{" "}
+                                    {/* 답변이 없으면 회색으로 숫자 표시 */}
+                                </span>
+                            )}
                         </div>
                         {item.title}
                         {activeIndex === index && ` ${item.content}`}
