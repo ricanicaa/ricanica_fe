@@ -5,35 +5,30 @@ import { names } from "../data/names";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 
-export const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
-    const [isOpen, setIsOpen] = useState(true);
+export const SearchBar = ({
+    searchQuery,
+    onSearchQueryChange,
+    isDropdownOpen,
+    onDropdownToggle,
+}) => {
     const [selectedItem, setSelectedItem] = useState(null);
 
     const handleSearchChange = (event) => {
-        onSearchQueryChange(event.target.value);
-        setIsOpen(true);
-    };
+        const value = event.target.value;
+        onSearchQueryChange(value); // 검색어 업데이트
+        setSelectedItem(null); // 검색어를 변경하면 선택된 항목 초기화
 
-    const handleSearchSubmit = () => {
-        // 검색 버튼 클릭 시, 필터된 항목이 하나일 경우 자동으로 선택
-        if (filteredItems.length === 1) {
-            const firstItem = filteredItems[0];
-            setSelectedItem(firstItem);
-            onSearchQueryChange(firstItem.english_name);
-            setIsOpen(false);
-        } else {
-            setIsOpen(true);
+        // 필터된 항목이 있으면 드롭다운 열고, 없으면 닫기
+        const shouldOpenDropdown = filteredItems.length > 0;
+        if (shouldOpenDropdown !== isDropdownOpen) {
+            onDropdownToggle(); // 드롭다운 열기/닫기 상태 변경
         }
     };
 
     const handleSelectItem = (item) => {
         setSelectedItem(item);
-        onSearchQueryChange(item.english_name);
-        setIsOpen(false);
-    };
-
-    const toggleDropdown = () => {
-        setIsOpen((prev) => !prev);
+        onSearchQueryChange(item.english_name); // 선택한 아이템으로 검색어 업데이트
+        onDropdownToggle(); // 드롭다운 닫기
     };
 
     const filteredItems = names.filter((item) =>
@@ -45,14 +40,13 @@ export const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
             const firstItem = filteredItems[0];
             setSelectedItem(firstItem);
             onSearchQueryChange(firstItem.english_name);
-            setIsOpen(false);
+            onDropdownToggle(); // 드롭다운 닫기
         }
     };
 
     const handleClearSelection = () => {
         setSelectedItem(null);
-        onSearchQueryChange("");
-        setIsOpen(true);
+        onSearchQueryChange(""); // 선택된 항목 초기화
     };
 
     const showDropdown = filteredItems.length > 0;
@@ -63,20 +57,23 @@ export const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
                 <input
                     className="Search-Box"
                     type="text"
-                    value={searchQuery}
+                    value={
+                        selectedItem ? selectedItem.english_name : searchQuery
+                    } // 선택된 항목 있으면 그 값, 없으면 searchQuery
                     onChange={handleSearchChange}
                     onKeyDown={handleKeyDown}
                     placeholder="검색"
+                    style={{ paddingLeft: "20px" }}
                 />
-                {isOpen ? (
+                {isDropdownOpen ? (
                     <FaChevronUp
                         className="Search-Box-Icon"
-                        onClick={toggleDropdown}
+                        onClick={onDropdownToggle}
                     />
                 ) : (
                     <FaChevronDown
                         className="Search-Box-Icon"
-                        onClick={toggleDropdown}
+                        onClick={onDropdownToggle}
                     />
                 )}
                 {selectedItem && (
@@ -90,16 +87,13 @@ export const SearchBar = ({ searchQuery, onSearchQueryChange }) => {
                     </div>
                 )}
             </div>
-            {showDropdown && (
+            {showDropdown && isDropdownOpen && (
                 <Dropdown
                     items={filteredItems}
-                    isOpen={isOpen}
                     onSelect={handleSelectItem}
+                    isOpen={isDropdownOpen}
                 />
             )}
-            {/* <button className="Search-Button" onClick={handleSearchSubmit}>
-                검색
-            </button> */}
         </div>
     );
 };
