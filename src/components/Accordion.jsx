@@ -8,6 +8,7 @@ export const Accordion = ({ items }) => {
     const API_BASE = import.meta.env.VITE_APP_API_BASE;
     const [activeIndex, setActiveIndex] = useState(null);
     const [answers, setAnswers] = useState(Array(items.length).fill(""));
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggle = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -17,9 +18,10 @@ export const Accordion = ({ items }) => {
         const updatedAnswers = [...answers];
         updatedAnswers[index] = value;
         setAnswers(updatedAnswers);
-        if (value) {
-            setActiveIndex(null);
-        }
+    };
+
+    const handleDropdownToggle = () => {
+        setIsDropdownOpen((prev) => !prev);
     };
 
     const handleSubmit = async () => {
@@ -29,8 +31,6 @@ export const Accordion = ({ items }) => {
                 result[`question${index + 1}`] = id;
                 return result;
             }, {});
-
-            console.log("Submitted Answers:", formattedAnswers);
 
             const res = await axios.post(
                 `${API_BASE}/api/votes`,
@@ -45,6 +45,8 @@ export const Accordion = ({ items }) => {
             console.error(error);
         }
     };
+
+    const isFormValid = answers.filter((answer) => answer !== "").length === 10;
 
     return (
         <div className="Accordion">
@@ -87,18 +89,17 @@ export const Accordion = ({ items }) => {
                                         fontSize: "16px",
                                     }}
                                 >
-                                    {index + 1} {/* 1부터 10까지 표시 */}
+                                    {index + 1}
                                 </span>
                             ) : (
                                 <span
                                     style={{
-                                        color: "#bfbfbf", // 답변이 없으면 회색
+                                        color: "#bfbfbf",
                                         fontWeight: "bold",
                                         fontSize: "16px",
                                     }}
                                 >
                                     {index + 1}{" "}
-                                    {/* 답변이 없으면 회색으로 숫자 표시 */}
                                 </span>
                             )}
                         </div>
@@ -109,22 +110,51 @@ export const Accordion = ({ items }) => {
                         className={`Accordion-content ${
                             activeIndex === index ? "active" : ""
                         }`}
+                        style={{
+                            display: activeIndex === index ? "block" : "none",
+                            height: isDropdownOpen ? "200px" : "70px",
+                            transition: "height 0.3s ease",
+                        }}
                     >
                         {activeIndex === index && (
-                            <div className="SearchBar-container">
+                            <div
+                                className="SearchBar-container"
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                }}
+                            >
                                 <SearchBar
-                                    searchQuery={answers[index]} // 각 질문에 연결된 답변
+                                    searchQuery={answers[index]}
                                     onSearchQueryChange={(value) =>
                                         handleAnswerChange(index, value)
                                     }
+                                    isDropdownOpen={isDropdownOpen}
+                                    onDropdownToggle={handleDropdownToggle}
                                 />
                             </div>
                         )}
                     </div>
                 </div>
             ))}
-            <button onClick={handleSubmit} className="submit-button">
-                Submit All Answers
+            <button
+                onClick={handleSubmit}
+                className="submit-button"
+                disabled={!isFormValid}
+                style={{
+                    height: "50px",
+                    border: "none",
+                    borderRadius: "15px",
+                    backgroundColor: isFormValid ? "#007bff" : "#d7d7d7",
+                    cursor: isFormValid ? "pointer" : "not-allowed",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    letterSpacing: isFormValid ? "10px" : "2px",
+                    color: isFormValid ? "#fff" : "#bfbfbf",
+                    margin: "20px 0",
+                }}
+            >
+                {isFormValid ? "완료띠예" : "KEEP GOING"}
             </button>
         </div>
     );
