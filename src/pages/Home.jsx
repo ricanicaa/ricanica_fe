@@ -25,13 +25,13 @@ export const Home = () => {
         if (isLogin) fetchInitialLetters();
     }, [isLogin]);
 
-    if (!isLogin) navigate("/");
 
-    const fetchInitialLetters = async () => {
-        try {
-            const res = await axios.get(`${API_BASE}/api/letters`, {
-                withCredentials: true,
-            });
+  const fetchInitialLetters = async () => {
+    try {
+      const res = await axios.get(`${API_BASE}/api/letters`, {
+        withCredentials: true,
+      });
+
 
             if (res.status === 200) {
                 setLetters(res.data.data);

@@ -14,7 +14,6 @@ export const Letter = () => {
     setSearchQuery(query);
   };
 
-  if (!isLogin) navigate("/");
   return (
     <div className={styles.letter}>
       <div className={styles.pageTitle}> 따뜻한 마음 전하기 </div>
