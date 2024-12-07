@@ -6,84 +6,96 @@ import { LetterModal } from "../components/LetterModal";
 import { getNames } from "../util/member";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Snowflakes from "../components/Snowflakes";
 
 export const Home = () => {
-  const API_BASE = import.meta.env.VITE_APP_API_BASE;
-  const [letters, setLetters] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedLetter, setSelectedLetter] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [totalPage, setTotalPage] = useState(1);
-  const pageOwner = parseInt(sessionStorage.getItem("member_id"), 10);
-  const memberName = getNames(pageOwner);
-  const navigate = useNavigate();
+    const API_BASE = import.meta.env.VITE_APP_API_BASE;
+    const [letters, setLetters] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [selectedLetter, setSelectedLetter] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [totalPage, setTotalPage] = useState(1);
+    const pageOwner = parseInt(sessionStorage.getItem("member_id"), 10);
+    const memberName = getNames(pageOwner);
+    const navigate = useNavigate();
 
-  const isLogin = useAuth();
+    const isLogin = useAuth();
 
-  useEffect(() => {
-    if (isLogin) fetchInitialLetters();
-  }, [isLogin]);
+    useEffect(() => {
+        if (isLogin) fetchInitialLetters();
+    }, [isLogin]);
 
-  if (!isLogin) navigate("/");
+    if (!isLogin) navigate("/");
 
-  const fetchInitialLetters = async () => {
-    try {
-      const res = await axios.get(`${API_BASE}/api/letters`, {
-        withCredentials: true,
-      });
+    const fetchInitialLetters = async () => {
+        try {
+            const res = await axios.get(`${API_BASE}/api/letters`, {
+                withCredentials: true,
+            });
 
-      if (res.status === 200) {
-        setLetters(res.data.data);
-        setTotalPage(res.data.totalPage);
-      }
-    } catch (error) {
-      if (error.status == 401) {
-        navigate("/");
-      }
-    }
-  };
-
-  const fetchLetters = async (page) => {
-    try {
-      const res = await axios.get(
-        `${API_BASE}/api/letters?currentPage=${page}`,
-        {
-          withCredentials: true,
+            if (res.status === 200) {
+                setLetters(res.data.data);
+                setTotalPage(res.data.totalPage);
+            }
+        } catch (error) {
+            if (error.status == 401) {
+                navigate("/");
+            }
         }
-      );
-      if (res.status === 200) setLetters(res.data.data);
-    } catch (error) {
-      if (error.status == 401) {
-        navigate("/");
-      }
-    }
-  };
+    };
 
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-    fetchLetters(value);
-  };
+    const fetchLetters = async (page) => {
+        try {
+            const res = await axios.get(
+                `${API_BASE}/api/letters?currentPage=${page}`,
+                {
+                    withCredentials: true,
+                }
+            );
+            if (res.status === 200) setLetters(res.data.data);
+        } catch (error) {
+            if (error.status == 401) {
+                navigate("/");
+            }
+        }
+    };
 
-  const handleOpen = (letter) => {
-    setSelectedLetter(letter);
-    setOpen(true);
-  };
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
+        fetchLetters(value);
+    };
 
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedLetter(null);
-  };
+    const handleOpen = (letter) => {
+        setSelectedLetter(letter);
+        setOpen(true);
+    };
 
-  return (
-    <div className="Home">
-      <h1 className="tree-title">{memberName} 님의 Tree</h1>
-      <Tree letters={letters} onLetterClick={handleOpen} />
-      <PaginationBtn
-        totalPage={totalPage}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
-      <LetterModal open={open} letter={selectedLetter} onClose={handleClose} />
-    </div>
-  );
+    const handleClose = () => {
+        setOpen(false);
+        setSelectedLetter(null);
+    };
+
+    return (
+        <div className="Home">
+            <Snowflakes count={30} speedRange={[20, 45]} />
+            <Snowflakes count={30} speedRange={[40, 55]} />
+            <h1
+                className="tree-title"
+                style={{ color: "white", marginLeft: "30px" }}
+            >
+                {memberName} 님의 Tree
+            </h1>
+            <Tree letters={letters} onLetterClick={handleOpen} />
+            <PaginationBtn
+                totalPage={totalPage}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
+            <LetterModal
+                open={open}
+                letter={selectedLetter}
+                onClose={handleClose}
+            />
+        </div>
+    );
 };

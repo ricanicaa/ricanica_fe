@@ -1,0 +1,67 @@
+@use "sass:math"; // math 모듈을 사용해야 함
+
+$snow-color: #ffffff;
+$min: -50;
+$max: 50;
+
+// random_range 함수 정의
+@function random_range($min, $max) {
+    $rand: math.random(); // random() -> math.random()으로 수정
+    $random_range: $min + math.floor($rand * (($max - $min) + 1)); // floor() -> math.floor()로 수정
+    @return $random_range;
+}
+
+.snow-wrapper {
+    position: fixed;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none; // 클릭을 방지하여 다른 요소들이 영향을 받지 않게 함
+    filter: blur(2px); // 흐림 효과
+}
+
+.snow {
+    $total: 200; // 눈송이 개수 (여기서 눈송이 200개를 생성)
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: $snow-color;
+    border-radius: 50%;
+    animation: snowfall 5s linear infinite;
+
+    @for $i from 1 through $total {
+        $random-x: math.random(1000000) * 0.1vw; // 눈송이의 랜덤 X 좌표
+        $random-y: math.random(1000000) * 100vh; // 눈송이의 랜덤 Y 좌표
+        $random-scale: math.random(10000) * 0.1; // 눈송이 크기 조정
+        $fall-duration: random_range(10, 30) * 1s; // 눈송이가 떨어지는 시간
+        $fall-delay: math.div(math.random(30), 1) * -1s; // 떨어지는 시간 지연
+
+        &:nth-child(#{$i}) {
+            opacity: math.random(10000) * 0.0001; // 눈송이 투명도
+            transform: translate($random-x, $random-y) scale($random-scale);
+            animation: fall-#{$i} $fall-duration $fall-delay linear infinite;
+        }
+
+        @keyframes fall-#{$i} {
+            0% {
+                transform: translate($random-x, -10px) scale($random-scale); // 시작 위치
+            }
+            100% {
+                transform: translate($random-x, 100vh) scale($random-scale); // 끝 위치
+            }
+        }
+    }
+}
+
+@keyframes snowfall {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(100vh);
+    }
+}

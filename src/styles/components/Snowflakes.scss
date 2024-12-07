@@ -1,0 +1,38 @@
+@keyframes snowflake-fall {
+    0% {
+        top: -10%;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+@keyframes snowflake-shake {
+    0%,
+    100% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(80px);
+    }
+}
+
+.snowflakes-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none; /* 클릭 방지 */
+    z-index: 9999;
+}
+
+.snowflake {
+    position: absolute;
+    width: 12px; /* 원의 크기 */
+    height: 12px; /* 원의 크기 */
+    background-color: #fff; /* 원 색 */
+    border-radius: 50%; /* 원 모양 만들기 */
+    opacity: 0.7;
+    animation: snowflake-fall linear infinite,
+        snowflake-shake ease-in-out infinite;
+    z-index: 10;
+}
