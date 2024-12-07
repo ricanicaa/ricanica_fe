@@ -25,13 +25,11 @@ export const Home = () => {
         if (isLogin) fetchInitialLetters();
     }, [isLogin]);
 
-
-  const fetchInitialLetters = async () => {
-    try {
-      const res = await axios.get(`${API_BASE}/api/letters`, {
-        withCredentials: true,
-      });
-
+    const fetchInitialLetters = async () => {
+        try {
+            const res = await axios.get(`${API_BASE}/api/letters`, {
+                withCredentials: true,
+            });
 
             if (res.status === 200) {
                 setLetters(res.data.data);
@@ -76,7 +74,14 @@ export const Home = () => {
     };
 
     return (
-        <div className="Home">
+        <div
+            className="Home"
+            style={{
+                backgroundColor: "#090E28",
+                padding: "28px",
+                height: "100vh",
+            }}
+        >
             <Snowflakes count={30} speedRange={[20, 45]} />
             <Snowflakes count={30} speedRange={[40, 55]} />
             <h1

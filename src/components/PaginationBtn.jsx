@@ -8,7 +8,15 @@ export const PaginationBtn = ({ totalPage, currentPage, onPageChange }) => {
                     count={totalPage}
                     page={currentPage}
                     onChange={onPageChange}
-                    color="primary"
+                    sx={{
+                        "& .MuiPaginationItem-root": {
+                            color: "white",
+                        },
+                        "& .Mui-selected": {
+                            backgroundColor: "#007bff",
+                            color: "white",
+                        },
+                    }}
                 />
             </Stack>
         </div>
