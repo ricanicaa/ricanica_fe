@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { LoginForm } from "../components/LoginForm";
+import santa from "../image/santa.png";
 
 export const Splash = () => {
   const API_BASE = import.meta.env.VITE_APP_API_BASE;
@@ -38,8 +39,19 @@ export const Splash = () => {
   };
 
   return (
-    <div className="splash" style={{display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", width: "100%"}}>
-    {/* <Grid
+    <div
+      className="splash"
+      style={{
+        display: "flex",
+        position: "relative",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        width: "100%",
+      }}
+    >
+      <img style={{ marginLeft: "10%", width: "40%" }} src={santa} />
+      {/* <Grid
       item
       style={{
         border: "1px solid black",
