@@ -22,6 +22,7 @@ export const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedLetter, setSelectedLetter] = useState(null);
     const [open, setOpen] = useState(false);
+    const [selectedLetterId, setSelectedLetterId] = useState(null);
     const [totalPage, setTotalPage] = useState(1);
     const pageOwner = parseInt(sessionStorage.getItem("member_id"), 10);
     const memberName = getNames(pageOwner);
@@ -72,13 +73,13 @@ export const Home = () => {
     };
 
     const handleOpen = (letter) => {
-        setSelectedLetter(letter);
+        setSelectedLetterId(letter.letter_id);
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
-        setSelectedLetter(null);
+        setSelectedLetterId(null);
     };
 
     return (
@@ -105,11 +106,11 @@ export const Home = () => {
                     currentPage={currentPage}
                     onPageChange={handlePageChange}
                 />
-                {/* <LetterModal
+                <LetterModal
                     open={open}
-                    letter={selectedLetter}
+                    letterId={selectedLetterId}
                     onClose={handleClose}
-                /> */}
+                />
             </div>
         </>
     );
