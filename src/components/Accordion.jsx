@@ -1,5 +1,6 @@
 import "../styles/components/Accordion.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { SearchBar } from "../components/SearchBar";
 import { getMemberId } from "../util/member";
 import axios from "axios";
@@ -9,6 +10,16 @@ export const Accordion = ({ items }) => {
     const [activeIndex, setActiveIndex] = useState(null);
     const [answers, setAnswers] = useState(Array(items.length).fill(""));
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // 설문 제출 여부 확인
+        const isSubmitted = localStorage.getItem("surveySubmitted");
+        if (isSubmitted) {
+            alert("이미 제출띠예");
+            navigate("/home");
+        }
+    }, [navigate]);
 
     const toggle = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
@@ -31,15 +42,17 @@ export const Accordion = ({ items }) => {
                 result[`question${index + 1}`] = id;
                 return result;
             }, {});
-
             const res = await axios.post(
                 `${API_BASE}/api/votes`,
                 formattedAnswers,
                 { withCredentials: true }
             );
 
-            if (res.status === 200) {
-                alert("설문조사 완료");
+            if (res.status === 201) {
+                // 설문 제출 상태 저장
+                localStorage.setItem("surveySubmitted", "true");
+                alert("설문 결과는 파티 당일에 공개됩니다 ~");
+                navigate("/home");
             }
         } catch (error) {
             console.error(error);
@@ -99,7 +112,7 @@ export const Accordion = ({ items }) => {
                                         fontSize: "16px",
                                     }}
                                 >
-                                    {index + 1}{" "}
+                                    {index + 1}
                                 </span>
                             )}
                         </div>

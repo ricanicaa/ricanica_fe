@@ -22,6 +22,7 @@ export const Tree = ({ letters, onLetterClick }) => {
                 position: "relative",
                 display: "flex",
                 justifyContent: "center",
+                marginTop: "100px",
             }}
         >
             <img src={tree} alt="Tree" />

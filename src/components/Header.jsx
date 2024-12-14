@@ -17,10 +17,10 @@ export const Header = () => {
         <div style={{ position: "relative" }}> {/* App 내부에서 상대 위치 */}
             <IconButton
                 edge="start"
-                color="inherit"
+                color="info"
                 aria-label="menu"
                 onClick={toggleMenu(true)}
-                sx={{ position: "absolute", top: 10, right: 10 }}
+                sx={{ position: "absolute", top: 40, right: 30 }}
             >
                 <MenuIcon />
             </IconButton>
