@@ -1,14 +1,14 @@
 export const question = [
-    { title: "question 1", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 2", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 3", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 4", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 5", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 6", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 7", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 8", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 9", content: ": 카부캠에서 제일 ~~ 한 사람" },
-    { title: "question 10", content: ": 카부캠에서 제일 ~~ 한 사람" },
+    { title: "q1", content: ": 카클스에서 제일 환불 잘 할 것 같은 사람" },
+    { title: "q2", content: ": 첫 인상이랑 가장 다른 사람" },
+    { title: "q3", content: ": 결혼 제일 빨리할 것 같은 사람" },
+    { title: "q4", content: ": 결혼전제로 친동생에게 소개시켜주고 싶은 사람" },
+    { title: "q5", content: ": 쌰움나면 옆에서 팝콘먹으며 구경할 것 같은 사람" },
+    { title: "q6", content: ": 길가다 사이비가 말 걸면 한시간 동안 들어줄 것 같은 사람" },
+    { title: "q7", content: ": 카클스 육아난이도 최상" },
+    { title: "q8", content: ": 카클스 최고 패셔니스타" },
+    { title: "q9", content: ": 무인도에서도 혼자 잘 살 것 같은 사람" },
+    { title: "q10", content: ": 내가 카클스에서 제일 고마운 사람" },
 ];
 
 export const names = [

@@ -8,10 +8,18 @@ import { useNavigate } from "react-router-dom";
 export const Letter = () => {
   const navigate = useNavigate();
   const isLogin = useAuth();
-  const [searchQuery, setSearchQuery] = useState("");
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // 드롭다운 상태 관리
+
+  // 검색어 변경 핸들러
   const handleSearchQueryChange = (query) => {
     setSearchQuery(query);
+  };
+
+  // 드롭다운 상태 토글 핸들러
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
@@ -25,8 +33,10 @@ export const Letter = () => {
           <div className={styles.caution}>하지만 상처는 주지 않도록!</div>
         </div>
         <SearchBar
-          searchQuery={searchQuery}
-          onSearchQueryChange={handleSearchQueryChange}
+          searchQuery={searchQuery} // 검색어 상태 전달
+          onSearchQueryChange={handleSearchQueryChange} // 검색어 변경 핸들러 전달
+          isDropdownOpen={isDropdownOpen} // 드롭다운 상태 전달
+          onDropdownToggle={handleDropdownToggle} // 드롭다운 토글 핸들러 전달
         />
       </div>
       <div style={{ height: "30px" }}></div>

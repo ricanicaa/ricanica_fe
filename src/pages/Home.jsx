@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import axios from "axios";
 import { Tree } from "../components/Tree";
 import { PaginationBtn } from "../components/PaginationBtn";
@@ -7,6 +7,14 @@ import { getNames } from "../util/member";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import Snowflakes from "../components/Snowflakes";
+
+// Snowflakes 컴포넌트를 memo로 감싸서 리렌더링 방지
+const SnowflakesBackground = memo(() => (
+    <>
+        <Snowflakes count={30} speedRange={[20, 45]} />
+        <Snowflakes count={30} speedRange={[40, 55]} />
+    </>
+));
 
 export const Home = () => {
     const API_BASE = import.meta.env.VITE_APP_API_BASE;
@@ -74,33 +82,35 @@ export const Home = () => {
     };
 
     return (
-        <div
-            className="Home"
-            style={{
-                backgroundColor: "#090E28",
-                padding: "28px",
-                height: "100vh",
-            }}
-        >
-            <Snowflakes count={30} speedRange={[20, 45]} />
-            <Snowflakes count={30} speedRange={[40, 55]} />
-            <h1
-                className="tree-title"
-                style={{ color: "white", marginLeft: "30px" }}
+        <>
+            {/* SnowflakesBackground는 상태 변화와 분리 */}
+            <SnowflakesBackground />
+            <div
+                className="Home"
+                style={{
+                    backgroundColor: "#090E28",
+                    padding: "28px",
+                    height: "100vh",
+                }}
             >
-                {memberName} 님의 Tree
-            </h1>
-            <Tree letters={letters} onLetterClick={handleOpen} />
-            <PaginationBtn
-                totalPage={totalPage}
-                currentPage={currentPage}
-                onPageChange={handlePageChange}
-            />
-            <LetterModal
-                open={open}
-                letter={selectedLetter}
-                onClose={handleClose}
-            />
-        </div>
+                <h1
+                    className="tree-title"
+                    style={{ color: "white", marginLeft: "30px" }}
+                >
+                    {memberName} 님의 Tree
+                </h1>
+                <Tree letters={letters} onLetterClick={handleOpen} />
+                <PaginationBtn
+                    totalPage={totalPage}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                />
+                {/* <LetterModal
+                    open={open}
+                    letter={selectedLetter}
+                    onClose={handleClose}
+                /> */}
+            </div>
+        </>
     );
 };

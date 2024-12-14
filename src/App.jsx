@@ -1,17 +1,16 @@
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
-
 import { Router } from "./router";
 import { Header } from "./components/Header";
+import { useLocation } from "react-router-dom";
 
 function App() {
+    const location = useLocation();
+
     return (
-        <BrowserRouter>
-            <div className="App">
-                <Header />
-                <Router />
-            </div>
-        </BrowserRouter>
+        <div className="App">
+            {location.pathname !== "/" && <Header />}
+            <Router />
+        </div>
     );
 }
 

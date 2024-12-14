@@ -34,7 +34,7 @@ export const CreateLetter = ({ searchQuery }) => {
 
   // 유효성 검사
   const validateContent = () => {
-    setIsContentValid(content.length >= 50);
+    setIsContentValid(content.length >= 10);
   };
 
   const validateSender = () => {
@@ -92,10 +92,11 @@ export const CreateLetter = ({ searchQuery }) => {
             onChange={(e) => setContent(e.target.value)}
             onBlur={validateContent}
           />
-          <div className="char-count">{content.length} 자</div>
+       
           {!isContentValid && (
             <div className="helper-text">
-              내용은 최소 50자 이상이어야 합니다.
+              내용은 최소 10자 이상이어야 합니다.
+              <div className="char-count">{content.length} 자</div>
             </div>
           )}
         </div>
