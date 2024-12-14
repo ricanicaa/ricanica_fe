@@ -5,7 +5,15 @@ export const LoginForm = ({ onSubmit }) => {
   const { control, handleSubmit } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ width: "80%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      style={{
+        width: "50%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Grid container direction={"column"} spacing={3}>
         <Grid item style={{ width: "70%" }}>
           <Controller
